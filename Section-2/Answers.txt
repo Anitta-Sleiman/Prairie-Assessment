@@ -1,0 +1,81 @@
+CREATE TABLE mentors (
+    mentorSSN INT PRIMARY KEY UNIQUE,
+    mentorfname VARCHAR(255) NOT NULL,
+    mentorlname VARCHAR(255) NOT NULL,
+    mentorDOB Date,
+    salary INT NOT NULL,
+    senioritylevel VARCHAR(255),
+    depOffice INT FOREIGN KEY,
+    topicID INT FOREIGN KEY,
+)
+
+CREATE TABLE students (
+    studentNo INT PRIMARY KEY UNIQUE,
+    studentSSN INT,
+    studentfname VARCHAR(255),
+    studentlname VARCHAR(255),
+    studentDOB Date,
+    skills VARCHAR(255),
+    cohortID INT FOREIGN KEY,
+)
+
+CREATE TABLE cohorts (
+    cohortID INT PRIMARY KEY UNIQUE,
+    cohortnumber INT,
+    startdate date,
+    enddate Date,
+    studentNo INT FOREIGN KEY,
+    topicID INT FOREIGN KEY,
+    mentorSSN INT FOREIGN KEY,
+)
+
+CREATE TABLE topics (
+    topicID INT PRIMARY KEY UNIQUE,
+    title VARCHAR(255),
+    description VARCHAR(255),
+    mentorSSN INT FOREIGN KEY
+)
+
+CREATE TABLE departments(
+    depID INT PRIMARY KEY,
+    depname VARCHAR(255),
+    depOffice VARCHAR(255),
+    topicID INT FOREIGN KEY,
+    mentorSSN INT FOREIGN KEY
+)
+
+INSERT INTO mentors 
+VALUES 
+(1, "Yassine, "Saad", 01/01/1990, "junior", "1000", 333, "English")
+(2, "Saad, "Saad", 01/01/1991, "junior", "1000", 500, "English")
+(3, "Jad, "Saad", 01/01/1991, "junior", "1000", 400, "English")
+(4, "Rabih, "Saad", 01/01/1991, "senior", "3000", 333, "Full stack")
+
+INSERT INTO students
+VALUES 
+(88, "Yassine, "Hamza", 01/01/2004, "Development")
+(89, "Saad, "Hamza", 01/01/2005, "Development")
+(90, "Jad, "Hamza", 01/01/2006,  "Eating")
+(91, "Rabih, "Hamza", 01/01/2007, "Development")
+
+INSERT INTO cohorts
+VALUES 
+(1, 1, 01/01/2021, 01/01/2022, 88, 12,  )
+(2, 2, 01/01/2022, 2023, 89, 12, )
+ 
+ (same as before for the table)
+
+
+4. 
+SELECT mentorfname, mentorlname, senioritylevel FROM mentors;
+
+SELECT mentorSSN FROM mentors WHERE office = 333;
+
+SELECT mentorfname, mentorlname, senioritylevel FROM mentors where salary > 1000;
+
+SELECT mentorfname, mentorlname FROM mentors INNER JOIN departments ON mentors.mentorSSN = departments.mentorSSN;
+
+SELECT COUNT(studentNo) FROM students where skills = "Development";
+
+SELECT COUNT(studentSSN) FROM students where skills = "Development";
+
